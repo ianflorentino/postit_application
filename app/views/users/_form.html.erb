@@ -1,0 +1,20 @@
+<%= render "shared/errors", obj: @user %>
+
+<div class="well">
+  <%= form_for @user do |f| %> 
+    <div class="control-group">
+      <%= f.label :username, "Username" %>
+      <%= f.text_field :username %>
+    </div>
+    <div class="control-group">
+      <%= f.label :email, "Email" %>
+      <%= f.text_field :email %>
+    </div>
+     <div class="control-group">
+      <%= f.label :password, "Password" %>
+      <%= f.password_field :password %>
+    </div>
+
+    <%= f.submit button, class: "btn btn-primary" %>
+  <% end %>
+</div> 

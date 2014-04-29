@@ -1,0 +1,33 @@
+<%= render "shared/content_title", title: "Profile &raquo; #{@user.username}".html_safe %>
+<div class="well">
+  <p class="pull-right">
+    <% if logged_in? && @user.id == current_user.id %>
+      [<%= link_to "edit profile settings", edit_user_path(current_user.username) %>]
+    <% end %>
+  </p>
+  <dl class="dl-horizontal">
+    <dt>Username:</dt>
+    <dd><%= @user.username %></dd>
+    <dt>Time Zone:</dt>
+  </dl>
+</div>
+
+<p><%= @user.username %>'s Activity</p>
+<ul class="nav nav-tabs">
+  <li class="<%= 'active' if params[:tab].nil? %>">
+    <%= link_to("Posts (#{@user.posts.size})", user_path(@user.username)) %>
+  </li>
+  <li class="<%= 'active' if params[:tab] == 'comments' %>">
+    <%= link_to("Comments (#{@user.comments.size})", user_path(@user.username, tab: 'comments')) %></a>
+  </li>
+</ul>
+
+<% if params[:tab].nil? %>
+  <% @user.posts.each do |posts| %>
+    <%= render 'posts/post', post: posts %>
+  <% end %>
+<% elsif params[:tab] == 'comments' %>
+  <% @user.comments.each do |comment| %>
+    <%= render 'comments/comment', comment: comment, show_post: true %>
+  <% end %>
+<% end %>

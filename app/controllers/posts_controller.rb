@@ -5,20 +5,20 @@ class PostsController < ApplicationController
   #2. redirect away from an action
 
   def index
-    @posts = Post.all
+    @posts = Post.all.sort_by{|x| x.total_votes}.reverse
   end
 
-  def show
+  def show  
     @comment = Comment.new
   end
 
   def vote
     @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-    
+
     if @vote.valid?
       flash[:notice] = "Vote completed"
     else
-      flash[:error] = "Vote Denied"
+      flash[:error] = "Vote Denied. Cannot vote more than once for a particular Post/Comment"
     end
 
     redirect_to :back

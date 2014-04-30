@@ -15,17 +15,21 @@
 </p>
 <hr/>
 <% if logged_in? %>
-  <h5>Create a Comment:</h5>
+  <h5>Leave a Comment:</h5>
   <%= form_for [@post, @comment] do |f| %>
-  <%= render "shared/errors", obj: @comment %>
-    <%= f.text_area :body, rows: 3, class: 'span4' %>
-    <br/>
+    <div class="row">
+      <%= render 'shared/errors', obj: @comment %>
+    </div>
+    <div class="control-group">
+      <% f.label :body %>
+      <%= f.text_area :body, rows: 3, class: 'span4' %>
+    </div>
     <%= f.submit "Create Comment", class: "btn btn-primary" %>
   <% end %>
 <% end %>
 
 <h5>Comments:</h5>
-<% @post.comments.each do |comment| %>
+<% @post.comments.all.sort_by{|x| x.total_votes}.reverse.each do |comment| %>
   <%= render "comments/comment", comment: comment  %>
 <% end %>
 

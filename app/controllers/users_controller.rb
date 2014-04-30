@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
-  before_action :require_user, except: [:show]
+  before_action :require_user, except: [:show, :new, :create]
   before_action :require_same_user, only: [:edit, :update]
 
   def show; end
 
-  def new
+  def new 
     @user = User.new
   end
 
@@ -24,9 +24,9 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if current_user.update(user_params)
+    if @user.update(user_params)
       flash[:notice] = "Profile settings saved"
-      redirect_to user_path(current_user.username)
+      redirect_to user_path(@user)
     else
       render :edit
     end
@@ -38,15 +38,13 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find_by_username(params[:id])
+    @user = User.find(params[:id])
   end
 
   def require_same_user
     if current_user != @user
       flash[:error] = "You are not allowed to do that"
-      redirect_to user_path(@user.username)
-    else
-      render :edit
+      redirect_to root_path
     end
   end
 end

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span0 well text-center">
     <% if logged_in? %>
-      <%= link_to vote_post_path(post, vote: 't'), method: 'post' do %>
+      <%= link_to vote_post_path(post, vote: true), method: 'post' do %>
         <i class="icon-arrow-up"></i>
       <% end %>
     </br>
@@ -9,7 +9,7 @@
     <%= "#{post.total_votes} Votes" %>
     </br>
     <% if logged_in? %>
-      <%= link_to vote_post_path(post, vote: 'f'), method: 'post' do %>
+      <%= link_to vote_post_path(post, vote: false), method: 'post' do %>
         <i class="icon-arrow-down"></i>
       <% end %>
     <% end %>
@@ -20,7 +20,7 @@
       <h4><%= link_to post.title, fix_url(post.url), :target => "_blank" %></h4>
     </div>
     <p><%= simple_format(post.description) %></p>
-      <span class="quiet">posted by </span><%= link_to("#{post.creator.username}", user_path(post.creator.username)) %>
+      <span class="quiet">posted by </span><%= link_to("#{post.creator.username}", user_path(post.creator)) %>
       <small>at <%= date_time(post.created_at) %></small>
     </p>
     <small>

@@ -1,4 +1,4 @@
-<% if logged_in? && @post.user_id == current_user.id %>
+<% if logged_in? && @post.user_id == current_user.id || logged_in? && current_user.admin? %>
   <p class="pull-right">
     [<%= link_to "edit this post", edit_post_path(@post)%>]
   </p>
@@ -29,7 +29,7 @@
 <% end %>
 
 <h5>Comments:</h5>
-<% @post.comments.all.sort_by{|x| x.total_votes}.reverse.each do |comment| %>
+<% @post.comments.each do |comment| %>
   <%= render 'comments/comment', comment: comment %>
 <% end %>
 

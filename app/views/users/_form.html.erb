@@ -1,4 +1,4 @@
-<div class="well">
+ <div class="well">
   <%= form_for @user do |f| %> 
   <%= render "shared/errors", obj: @user %>
     <div class="control-group">
@@ -9,11 +9,21 @@
       <%= f.label :email, "Email" %>
       <%= f.text_field :email %>
     </div>
-     <div class="control-group">
+    <div class="control-group">
+      <%= f.label :time_zone %>
+      <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, default: Time.zone.name %>
+    </div>
+    <div class="control-group">
       <%= f.label :password, "Password" %>
       <%= f.password_field :password %>
     </div>
-
+    <div class ="control-group">
+      <%= f.label :phone, "Phone Number <small>(numbers only)</small>".html_safe %>
+      <%= f.text_field :phone, maxlength: 9 %>
+      <%= link_to '#', id: 'two' do %>    
+        <i class='icon-question-sign'></i>
+      <% end %>
+    </div>
     <%= f.submit button, class: "btn btn-primary" %>
   <% end %>
 </div> 

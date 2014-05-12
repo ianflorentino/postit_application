@@ -13,6 +13,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '=3.0.1'
+gem 'voteable_ian', path: '/Users/Ian/voteable-gem'
+gem 'twilio-ruby'
 
 group :doc do
   gem 'sdoc', require: false
